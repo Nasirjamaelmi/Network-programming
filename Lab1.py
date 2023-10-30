@@ -39,5 +39,8 @@ t = 1111, 2222, 3333
 
 x,y,z  = t
 
-print(x,y,z)
+knights = {'gallahad': 'the pure', 'robin': 'the brave'}
 
+age = 30
+if 20 <= age <= 65:
+    print("vad jobbar du med")
