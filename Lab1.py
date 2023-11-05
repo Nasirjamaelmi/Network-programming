@@ -1,3 +1,6 @@
+
+import prog
+
 s = "Yuji itadori"
 
 def hello(n):
@@ -44,3 +47,14 @@ knights = {'gallahad': 'the pure', 'robin': 'the brave'}
 age = 30
 if 20 <= age <= 65:
     print("vad jobbar du med")
+    
+    
+    
+from prog import getLotto
+
+lotto_results = getLotto()
+
+
+f = open('Bluelock.txt', 'r', encoding="utf-8")
+for line in f:
+    print(line, end='')
