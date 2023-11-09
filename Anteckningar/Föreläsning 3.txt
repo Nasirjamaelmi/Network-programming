@@ -1,0 +1,5 @@
+NäterkProgrammering
+
+Network layer was designed as  a connectionless service
+
+Connectionless: no relation between packets. Sender and reciver do not maintain any additional information when sending several packets sequentially (even when these packets belong the same data steam

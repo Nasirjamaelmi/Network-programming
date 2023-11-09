@@ -1,0 +1,40 @@
+NäterkProgrammering
+
+Network layer was designed as  a connectionless service
+
+Connectionless: no relation between packets. Sender and reciver do not maintain any additional information when sending several packets sequentially (even when these packets belong the same data stream.
+
+Connection-oriented: clear relation between packets belonging to the same data stream. Connection set-up, controlled packet transfer, connection tear-down.
+
+Network layer was designed to take care of packet delivery between different lans. Thus,routing is a central task.
+
+network layer doesn,t take care of 
+Error control
+Flow control
+Congestion control
+
+ipadress is a 32 bit integear
+ipadress is made up of netid and hostid.
+netid is 24 bit of the 32 
+and the host is the 8 last bit.
+
+Direct deliver: destination is in the same lan,
+map final logical adress to final physical adress and hand over to the link layer.
+
+indirect delivery:destination is in another lan, 
+look up final logical adress in routing table to. determine next hop logical adress. Then map this next hop logical adress to next hop physical adress and hand over to the link layer
+
+
+Internet protocol is a connectionless service
+
+
+
+
+
+
+
+
+
+
+
+
