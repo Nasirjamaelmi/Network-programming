@@ -21,9 +21,9 @@ print(    a.__next__()  )
 
 def FibonacciSerie(n):
     a,b = 0,1
-    while(b+a < n):
+    while(b < n):
         a,b = b, a+b
-        yield a,b
+        yield a
 
 
 for i in FibonacciSerie(1000000):
