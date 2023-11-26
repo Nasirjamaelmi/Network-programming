@@ -1,4 +1,5 @@
 
+import select
 import tkinter as tk
 import tkinter.messagebox as tkmsgbox
 import tkinter.scrolledtext as tksctxt
@@ -142,8 +143,7 @@ def disconnect():
             print("Disconnected succesfully")
         finally:
             g_bConnected = False
-    else:
-        print("alredy disconnected")
+            g_sock = None
     # once disconnected, set buttons text to 'connect'
     g_app.connectButton['text'] = 'connect'
 
@@ -155,7 +155,7 @@ def tryToConnect():
     global g_sock
 
     
-    # your code here
+ 
     ip_port = g_app.ipPort.get()
     try:
         ip, port_str = ip_port.split(':')  # Split into IP and port
@@ -169,7 +169,7 @@ def tryToConnect():
 
     try:
         # Try to connect to the server using the IP and port
-        g_sock.connect((ip, port))  # Use the extracted ip and port as a tuple
+        g_sock.connect((ip, port))  
         g_bConnected = True
         print("Connection successful.")
         g_app.connectButton['text'] = 'disconnect'
@@ -193,14 +193,40 @@ def sendMessage(master):
     # a call to g_app.textIn.get() delivers the text field's content
     # if a socket.error occurrs, you may want to disconnect, in order
     # to put the program into a defined state
-    pass
+    message = g_app.textIn.get()
+    try: 
+        g_sock.sendall(message.encode('utf-8'))
+        print(f"message sent{message}")
+    except socket.error as e:
+        print(f"Error sending message:{e}")
+        disconnect()
 
 
 # poll messages
 def pollMessages():
     # reschedule the next polling event
+    global g_sock
     g_root.after(g_pollFreq, pollMessages)
 
+    if g_sock is not None:
+        try:
+          
+            rlist, _, _ = select.select([g_sock], [], [], 0.0)  #this was the issue beforehand
+
+            if rlist:
+                data = g_sock.recv(1024)
+                if data:
+                    print(f"Received data: {data.decode('utf-8')}")
+                    # Add the received data to your message display
+                    printToMessages(data.decode('utf-8'))
+
+        except socket.error as e:
+            if e.errno == socket.errno.EWOULDBLOCK:
+                print("No data available")
+            else:
+                print(f"Socket error: {e}")
+
+        
     
     # your code here
     # use the recv() function in non-blocking mode
