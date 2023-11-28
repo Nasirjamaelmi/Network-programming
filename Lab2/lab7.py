@@ -5,6 +5,10 @@ port = 60003
 SockL = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 SockL.bind(("", port))
 SockL.listen(1)
+hostname = socket.gethostname()
+local_ip = socket.gethostbyname(hostname)
+
+print(f"Local IP Address: {local_ip}")
 
 listOfSocket = [SockL]
 
@@ -15,6 +19,7 @@ def brodcast(message):
     for client_socket in listOfSocket:
         if (client_socket != SockL):
             client_socket.sendall(bytearray(message, "ASCII"))
+
 
 while True: 
     tup = select.select(listOfSocket, [],[])
