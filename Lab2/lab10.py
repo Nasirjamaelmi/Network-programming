@@ -1,15 +1,39 @@
 import re
-txt = "Hanoror bought 5 portions of orange soil for 13.50 EUR."
-re.findall("or", txt)  #regex is used to manipulate txt to get wanted result in this exempel we get or
-re.findall(".", txt) #matches all characthers
-re.findall( "or.", txt) #matches with or and any charachter after
-re.findall("..\.", txt) # i get 2 characthers who has a dot after
-print("Hello\nWorld") # it interpret it as a new line with \n
-print(r"Hello\nWorld") # it write the whole as a string with \n
-re.findall(r"\w", txt) #Matches all characther almost
-re.findall(r"\W", txt) #matches all non characther the opposite
-re.findall(r"\d", txt) #d as digit matches all digits
-re.findall(r"\D", txt) #matches all characther
-re.findall(r"\s", txt) #s as in space ('\n', '\r', '\t')
-re.findall(r"\S", txt) # all chars
+
+def task1():
+    mtxt = "jox r.nohre@jth.hj.se, bjox@se, adam@example.com, jox@jox@jox.com."
+    regex = r"(?:\s)[\w.]+@[\w]+\.[\w.]+"  #non capturing group med en space innan sen matchar jag med ord efter
+    mails = re.findall(regex,mtxt)
+    
+    for email in mails:
+        print("\t" + email)
+    print("\n")
+
+def task3():
+    f = open("tabla.html", encoding="utf-8")
+    txt = f.read()
+
+    
+    tid_regex = r"<td class=\"svtTablaTime\">\s*"  
+    säsong_regex = r"(\d*\.\d*)\s+</td>\s+<td class=\"svtJsTablaShowInfo\">\s+<h4 class=\"svtLink-hover svtTablaHeading\">\s+"
+    avsnitt_regex = r"Simpsons\s*</h4>\s*<div class=\"svtJsStopPropagation\">\s+<div class=\"svtTablaTitleInfo svtHide-Js\">\s+<div class=\"svtTablaContent-Description\">\s+"
+    titel_regex = r"<p class=\"svtXMargin-Bottom-10px\">\s+Amerikansk animerad komediserie från [\d*]*\.\s*"
+    desc_regex = r"Säsong (\d*)\. Del (\d*) av (\d+)\.(.*?)\s*</p>"
+    
+    serie = re.findall(f"{tid_regex}{säsong_regex}{avsnitt_regex}{titel_regex}{desc_regex}", txt)
+    
+    
+    for ep in serie:
+        print(f"|Tid\t|{ep[0]}\t|\n|-------|-------|\n|Säsong\t|{ep[1]}\t|\n|-------|-------|\n|Avsnitt|{ep[2]}/{ep[3]}\t|\n|-------|-------|\nHandling:{ep[4]}")
+        print('_-_-' * 50 + "\n")
+
+    
+    
+    
+
+if __name__ == "__main__":
+    #task1()
+    task3()
+    
+#task 2 by using [] to match the words exatcly
 

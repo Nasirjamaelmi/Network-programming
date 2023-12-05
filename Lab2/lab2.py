@@ -1,6 +1,6 @@
 name_points = {}
 
-with open('Lab2\\score2.txt','r', encoding="utf-8") as f:
+with open('score2.txt','r', encoding="utf-8") as f:
   for line in f:
      elements = line.split()
      firstnamn = elements[2]
